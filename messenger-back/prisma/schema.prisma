@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id String @default(cuid()) @id @unique
+  timeCreate DateTime @default(now())
+  passwordHash String
+  refreshToken String?
+  profile Profile?
+  profileCreated Boolean @default(false)
+  login String @unique
+  email String? @unique
+  telephone String? @unique
+}
+
+model Profile {
+  id String @default(cuid()) @id @unique
+  account Account @relation(fields: [accountId], references: [id])
+  accountId String @unique
+  firstName String
+  lastName String
+  avatarUrl String?
+  aboutSelf String?
+  username String? @unique
+  chats Chat[]
+}
+
+
+// chatType => 'private', 'group', 'channel'
+model Chat {
+  id String @default(uuid()) @id @unique
+  chatType String
+  users Profile[]
+  avatarUrl String?
+  chatOwnerId String?
+  chatName  String?
+  messages Message[]
+}
+
+
+// ContentType => 'text','image','voice','document'
+model Message {
+  id String @default(uuid()) @id @unique
+  chat Chat @relation(fields: [chatId], references: [id])
+  chatId String
+  senderId String
+  replyToId String?
+  contentType String
+  text String?
+  imageUrl String?
+  thumbnailUrl String?
+  fileUrl String?
+  mimeType String?
+}
