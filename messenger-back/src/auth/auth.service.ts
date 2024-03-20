@@ -26,6 +26,7 @@ export default class AuthService {
             throw new UnauthorizedException('Неверный пароль');
         }
 
+
         if (!existsUser.profileCreated) {
             return {
                 ok: false,
