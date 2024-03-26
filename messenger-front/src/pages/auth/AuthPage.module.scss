@@ -1,0 +1,38 @@
+.auth {
+  @apply w-full min-h-screen text-center flex flex-col items-center;
+
+  .auth_form {
+    @apply flex flex-col bg-black bg-opacity-20 p-4 gap-3 mt-10 rounded-lg;
+    width: clamp(300px, 75%, 700px);
+  }
+}
+
+.caption {
+  @apply text-2xl mt-4;
+}
+
+.wrapper {
+  @apply flex bg-transparent relative items-center;
+}
+.input {
+  @apply p-3 rounded-lg bg-neutral-900 text-center w-full;
+}
+.show_password_icon {
+  @apply object-contain bg-contain w-6 h-6 absolute z-10 right-0 cursor-pointer mr-4;
+}
+
+.button {
+  @apply w-full bg-neutral-900 p-3 rounded-lg hover:bg-neutral-800 transition-colors;
+}
+
+.form_error {
+  @apply text-center text-red-600;
+}
+
+.other {
+  @apply p-2 flex justify-end;
+
+  a {
+    @apply hover:underline;
+  }
+}
